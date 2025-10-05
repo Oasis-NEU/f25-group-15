@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "nativewind": "^4.2.1"
+    "@vitejs/plugin-react": "^5.0.4",
+    "nativewind": "^4.2.1",
+    "vite": "^7.1.9"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.18"
