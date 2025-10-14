@@ -20,20 +20,26 @@ export function AuthProvider({children}) {
     // Posts user info to backend to create new user
     const register = async (email, password) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`, {
+            console.log("attempting to register")
+            console.log(`http://localhost:3001/register`)
+            const response = await fetch(`http://localhost:3001/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
+            console.log("request sent")
 
             const data = await response.json()
 
             if (response.ok) {
+                console.log("response: ", data.message)
                 return { success: true, message: data.message };
             } else {
+                console.log("response: ", data.message)
                 return { success: false, message: data.message };
             }
         } catch (error) {
+            console.log("fail")
             return { success: false, message: 'Server error'}
         }
         }

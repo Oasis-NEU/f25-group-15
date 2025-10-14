@@ -14,7 +14,8 @@ app.use(express.json())
 let users = [];
 
 app.post('/register', async (req, res) => {
-    const { email, username=email, password } = req.body;
+    console.log("/register called")
+    const { email, password } = req.body;
 
     if (users.find(u => u.email === email)) {
         return res.status(400).json({ message: 'Email already exists' })
@@ -22,16 +23,18 @@ app.post('/register', async (req, res) => {
 
     // Hash password for security, higher number of scramble takes longer
     // Default username is email
-    const hashedPassword = await bcrypt.hash(password, 3)
 
     const newUser = {
         email:email,
         username:email,
-        password:hashedPassword,
+        password:password,
         checkouts:{}
     }
 
     users.push(newUser)
+
+    console.log("new user created with username "+email+" and password "+password)
+
     res.status(201).json({ message: 'User successfully registered'})
 
 });
