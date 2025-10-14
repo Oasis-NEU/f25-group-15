@@ -1,11 +1,11 @@
 export const Textbox = ({
-    value, 
-    onChange = () => {(e) => setText(e.target.value)},
-    placeholder="",
+    value = "", 
+    onChange = () => {},
+    placeholder = "",
     width = "300px",
     height = "40px",
     border = "2px solid #522f0b",
-    backgroundColor = "#f0e0c2"
+    backgroundColor = "#f0e0c2",
 }) => {
     return (
         <textarea
