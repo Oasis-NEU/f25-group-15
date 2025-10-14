@@ -4,8 +4,9 @@ import { AuthContext } from '../contexts/AuthContext';
 
 function LoginPage() {
 
-    const { register } = useContext(AuthContext)
+    const { register, login, logout } = useContext(AuthContext) //TODO: move logout to dashboard
 
+    const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -15,28 +16,36 @@ function LoginPage() {
     const editPassword = (e) => {
         setPassword(e.target.value)
     }
-    const handleRegister = () => {
-        register(email, password)
+    const toggleLogin = () => {
+        setIsLogin(!isLogin)
     }
-    
-    return (
+    const handleSubmit = () => {
+        console.log('clicked')
+        if (isLogin) {
+            login(email, password)
+        } else {
+            register(email, password)
+        }
+    } 
+
+    return ( //TODO: Better UI, this looks like shit
         <div>
             <h1>
-                <>Create user</>
+            {isLogin ? 'Login:' : 'Create user:'}
             </h1>
             <div>
                 <>Enter email:</>
                 <Textbox value={email} onChange={editEmail}/>
             </div>
             <div>
-                <>Create password:</>
+                {isLogin ? 'Enter password:' : 'Create password:'}
                 <Textbox value={password} onChange={editPassword}/>
             </div>
-            <button onClick={handleRegister}>Submit</button>
-            <p>
-                {email}
-                {password}
-            </p>
+            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={toggleLogin}>
+                {isLogin? 'New user? Click here to register' : 'Have an account? Click here to login'}
+            </button>
+            <button onClick={logout}>Logout</button>
         </div>
     );
 };
