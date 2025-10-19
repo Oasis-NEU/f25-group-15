@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter, Link } from 'react-router-dom';
 import TempMainPage from "./pages/MainPage"
 import GameCollectionPage from "./pages/GameCollectionPage"
+import LoginPage from './pages/LoginPage.jsx'
 
 function App(){
   const [count, setCount] = useState(0)
