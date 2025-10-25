@@ -6,7 +6,6 @@ import GameCollectionPage from "./pages/GameCollectionPage"
 import LoginPage from './pages/LoginPage.jsx'
 
 function App(){
-  const [count, setCount] = useState(0)
 
   return (
     <BrowserRouter>
@@ -14,12 +13,14 @@ function App(){
           <Link to="/">Temperary Home Page</Link>
           <Link to="/Home">Home Page</Link>
           <Link to="/GamesCollection">Games Collection</Link>
+          <Link to="/Login">Login Page</Link>
       </nav>
 
       <Routes>
         <Route path="/" element={<TestHome />} />
         <Route path="/Home" element={<TempMainPage />} />
         <Route path="/GamesCollection" element={<GameCollectionPage/>} />
+        <Route path="/Login" element={<LoginPage/>} />
       </Routes>
     </BrowserRouter>
   );
