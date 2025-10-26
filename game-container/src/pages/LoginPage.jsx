@@ -11,7 +11,7 @@ function LoginPage() {
         navigate('/');
     };
 
-    const { register, login, logout } = useContext(AuthContext) //TODO: move logout to dashboard
+    const { register, login, recovery } = useContext(AuthContext)
 
     const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState('')
