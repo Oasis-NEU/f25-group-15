@@ -38,15 +38,15 @@ function MainPage() {
                         <div className="flex space-x-4">
                             <button
                                 className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
-                                onClick={goToLogin}
-                            >
-                                Login
-                            </button>
-                            <button
-                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
                                 onClick={goToGameCatalog}
                             >
                                 Game Catalog
+                            </button>
+                            <button
+                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
+                                onClick={goToLogin}
+                            >
+                                Login
                             </button>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ function MainPage() {
             <div className="flex flex-col items-center justify-center pt-24">
                 <main className="pt-24 px-8">
                     <h2 className="text-2xl font-semibold text-white mb-6">Welcome to GameBoard!</h2>
-                    <p className="text-white text-lg">
+                    <p className="text-white text-lg mb-3">
                         Discover and explore a vast collection of board games. Use the search bar above to find your favorite games or browse through our extensive catalog.
                     </p>
                     <h2 className="text-2xl font-semibold text-white mb-6">Community</h2>
