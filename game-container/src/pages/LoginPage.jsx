@@ -4,7 +4,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 function LoginPage() {
 
-    const { register, login, logout } = useContext(AuthContext) //TODO: move logout to dashboard
+    const { register, login, recovery } = useContext(AuthContext)
 
     const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState('')
@@ -45,7 +45,6 @@ function LoginPage() {
             <button onClick={toggleLogin}>
                 {isLogin? 'New user? Click here to register' : 'Have an account? Click here to login'}
             </button>
-            <button onClick={logout}>Logout</button>
         </div>
     );
 };
