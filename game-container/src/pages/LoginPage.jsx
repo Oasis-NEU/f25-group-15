@@ -1,8 +1,15 @@
 import {useContext, useState} from 'react'
 import { Textbox } from "../components/Textbox";
 import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginPage() {
+    const navigate = useNavigate();
+    
+    const goToHome = () => {
+        navigate('/');
+    };
 
     const { register, login, logout } = useContext(AuthContext) //TODO: move logout to dashboard
 
@@ -46,6 +53,7 @@ function LoginPage() {
                 {isLogin? 'New user? Click here to register' : 'Have an account? Click here to login'}
             </button>
             <button onClick={logout}>Logout</button>
+            <button onClick={goToHome}>Home</button>
         </div>
     );
 };
