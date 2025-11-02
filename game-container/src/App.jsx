@@ -14,12 +14,15 @@ function App(){
           <Link to="/">Temperary Home Page</Link>
           <Link to="/Home">Home Page</Link>
           <Link to="/GamesCollection">Games Collection</Link>
+          <Link to="/Log_In">Login Test</Link>
       </nav>
 
       <Routes>
         <Route path="/" element={<TestHome />} />
         <Route path="/Home" element={<TempMainPage />} />
         <Route path="/GamesCollection" element={<GameCollectionPage/>} />
+        <Route path="/LogIn" element={<LoginPage/>} />
+
       </Routes>
     </BrowserRouter>
   );
