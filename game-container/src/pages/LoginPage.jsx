@@ -11,7 +11,7 @@ function LoginPage() {
         navigate('/');
     };
 
-    const { register, login, recovery } = useContext(AuthContext)
+    const { errorMessage, register, login } = useContext(AuthContext)
 
     const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState('')
@@ -57,6 +57,7 @@ function LoginPage() {
                     <p className="text-white text-lg">{isLogin ? 'Enter password:' : 'Create password:'}</p>
                     <Textbox value={password} onChange={editPassword}/>
 
+                    <p className="text-white text-lg italic-text">Error: {errorMessage}</p>
                     <div className="flex space-x-4 mt-6">
                         <button onClick={handleSubmit}>Submit</button>
                         <button onClick={toggleLogin}>
