@@ -15,6 +15,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({children}) {
+    const [errorMessage, setErrorMessage] = useState('')
 
     const register = async (user_email, user_password) => {
         console.log('Running registration')
@@ -24,6 +25,10 @@ export function AuthProvider({children}) {
         })
         console.log('Data: ', data)
         console.log('Error: ', error)
+
+        var stringMessage = error.toString().split('Error: ')[1]
+        setErrorMessage(stringMessage)
+
         createGameCheckout()
     }
 
@@ -33,9 +38,12 @@ export function AuthProvider({children}) {
             email: user_email,
             password: user_password
         })
+
         console.log('Data: ', data)
         console.log('Error: ', error)
-        createGameCheckout()
+
+        var stringMessage = error.toString().split('Error: ')[1]
+        setErrorMessage(stringMessage)
     }
 
     const recovery = async (email) => {
@@ -60,7 +68,7 @@ export function AuthProvider({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{ login, logout, register, createGameCheckout }}>
+        <AuthContext.Provider value={{ errorMessage, login, logout, register, createGameCheckout }}>
             {children}
         </AuthContext.Provider>
     )
