@@ -3,35 +3,39 @@
 
 // TODO: add a field of user status (student vs admin)
 
-import {createContext, useState, useEffect} from "react";
-import { databaseConstants } from "../constants/database.js";
-import { createClient } from "@supabase/supabase-js";
+import {createContext, useContext, useEffect} from "react";
+import { supabase_client } from "../config/supabaseClient.js"
 
-const supabase = createClient(databaseConstants.supabaseURL, databaseConstants.supabaseKey)
+const supabase = supabase_client
 
 export const AuthContext = createContext()
 
+export function useAuth() {
+    return useContext(AuthContext)
+}
+
 export function AuthProvider({children}) {
 
-    const register = async (email, password) => {
+    const register = async (user_email, user_password) => {
         console.log('Running registration')
         let { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: password
+            email: user_email,
+            password: user_password
         })
         console.log('Data: ', data)
         console.log('Error: ', error)
         createGameCheckout()
     }
 
-    const login = async (email, password) => {
+    const login = async (user_email, user_password) => {
         console.log('Running login')
         let { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password
+            email: user_email,
+            password: user_password
         })
         console.log('Data: ', data)
         console.log('Error: ', error)
+        createGameCheckout()
     }
 
     const recovery = async (email) => {
@@ -42,14 +46,13 @@ export function AuthProvider({children}) {
     const createGameCheckout = async () => {
         console.log('Creating game checkout for testing')
         const { data: { user } } = await supabase.auth.getUser()
-        console.log(user.email)
+        console.log(user)
         const { data, error } = await supabase
         .from('user_games')
         .insert([
-            { email: user.email, games: [] },
+            { email: data.email, games: [] },
         ])
         .select()
-
     }
 
     const logout = () => {

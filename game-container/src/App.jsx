@@ -1,33 +1,73 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter, Link } from 'react-router-dom';
-import TempMainPage from "./pages/MainPage"
-import GameCollectionPage from "./pages/GameCollectionPage"
+import { supabase_client } from './config/supabaseClient';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import MainPage from './pages/MainPage.jsx';
+import GameCollectionPage from "./pages/GameCollectionPage.jsx"
 import LoginPage from './pages/LoginPage.jsx'
+
+function AppContent(){
+  const navigate = useNavigate()
+  const { user, loading } = useAuth()
+  const [ games, setGames] = useState([]);
+
+    useEffect(() => {
+    fetchGames();
+  }, []);
+
+  async function fetchGames() {
+    const { data, error } = await supabase_client
+      .from('GamesCatalogue')
+      .select("*");
+        
+    if (error) {
+      console.error('Error fetching games:', error);
+      alert(`Error fetching games: ${error.message}`);
+      return;
+    }
+    console.log(data)
+    setGames(data || []);
+  }
+
+  return (
+    <Routes>
+      <Route 
+        path="/" 
+        element={
+          <MainPage
+          />
+        } 
+      />
+      <Route 
+        path="/GamesCollection" 
+        element={
+          <GameCollectionPage
+            gameList={games}
+          />
+        } 
+      />
+      <Route 
+        path="/Login" 
+        element={
+          <LoginPage
+          />
+        } 
+      />
+    </Routes>
+  );
+}
+
 
 function App(){
 
   return (
-    <BrowserRouter>
-      
-
-      <Routes>
-        <Route path="/" element={<TempMainPage/>} />
-        <Route path="/GamesCollection" element={<GameCollectionPage/>} />
-        <Route path="/Login" element={<LoginPage/>} />
-      </Routes>
-
-      <nav>
-          <Link to="/">[Home Page] </Link>
-          <Link to="/GamesCollection">[Games Collection] </Link>
-          <Link to="/Login">[Login Page] </Link>
-      </nav>
-    </BrowserRouter>
+    <AuthProvider>
+      <Router>
+        <AppContent></AppContent>
+      </Router>
+    </AuthProvider>
   );
-}
-
-function TestHome(){
-  return <h1>Welcome!</h1>
 }
 
 export default App

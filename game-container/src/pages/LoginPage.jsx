@@ -52,7 +52,7 @@ function LoginPage() {
             <button onClick={toggleLogin}>
                 {isLogin? 'New user? Click here to register' : 'Have an account? Click here to login'}
             </button>
-            <button onClick={logout}>Logout</button>
+            {/* <button onClick={logout}>Logout</button> */}
             <button onClick={goToHome}>Home</button>
         </div>
     );
