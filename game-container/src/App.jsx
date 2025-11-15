@@ -26,7 +26,6 @@ function AppContent(){
       alert(`Error fetching games: ${error.message}`);
       return;
     }
-    console.log(data)
     setGames(data || []);
   }
 

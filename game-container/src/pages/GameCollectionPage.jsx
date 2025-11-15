@@ -7,12 +7,6 @@ import GameGrid from '../components/GameGrid';
 function GameCollectionPage({
     gameList
 }){
-    const navigate = useNavigate();
-        
-    const goToHome = () => {
-            navigate('/');
-    };
-
 
     return (
         <div className='min-h-screen min-w-screen bg-[#3B3F44]/75'>

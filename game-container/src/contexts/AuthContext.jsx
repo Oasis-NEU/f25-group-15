@@ -3,7 +3,7 @@
 
 // TODO: add a field of user status (student vs admin)
 
-import {createContext, useContext, useEffect} from "react";
+import {createContext, useContext, useState, useEffect} from "react";
 import { supabase_client } from "../config/supabaseClient.js"
 
 const supabase = supabase_client
