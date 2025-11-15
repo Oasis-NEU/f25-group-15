@@ -17,7 +17,7 @@ function GameCard({ game, onClick }) {
       
       <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
         <h3 className="text-lg font-bold display-inline-block;margin-right:10px; width:200px;" style={{ color: colors.text }}>
-          {game.Name}
+          {game.ItemTitle}
         </h3>
         
         {!(game.Booked) && 

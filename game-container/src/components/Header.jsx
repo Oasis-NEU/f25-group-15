@@ -1,14 +1,13 @@
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function Header({
-    buttons = []
+export function Header({
+    buttons = [],
 }){
     const navigate = useNavigate();
     
     const goToGameCatalog = () => navigate('/GamesCollection');
-    
     const goToLogin = () => navigate('/Login');
-
     const goToHome = () => navigate('/');
 
     return (
@@ -19,7 +18,7 @@ function Header({
                 <div className="flex-1">
                     <h1 className="text-3xl font-bold text-gray-800">GameBoard</h1>
                 </div>
-
+                
                 {/* Search Bar */}
                 <div className="flex-1 flex justify-center px-4">
                     <input
@@ -36,7 +35,7 @@ function Header({
 
                         {buttons.includes("Home") && (
                             <button
-                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
+                                className="px-5 py-2 bg-white text-gray-400 rounded-xl text-base font-medium hover:bg-gray-400 transition"
                                 onClick={goToHome}
                             >
                                 Home
@@ -46,7 +45,7 @@ function Header({
 
                         {buttons.includes("GameCatalog") && (
                             <button
-                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
+                                className="px-5 py-2 bg-white text-gray-400 rounded-xl text-base font-medium hover:bg-gray-400 transition"
                                 onClick={goToGameCatalog}
                             >
                                 Game Catalog
@@ -56,7 +55,7 @@ function Header({
 
                         {buttons.includes("Login") && (
                             <button
-                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
+                                className="px-5 py-2 bg-white text-gray-400 rounded-xl text-base font-medium hover:bg-gray-400 transition"
                                 onClick={goToLogin}
                             >
                                 Login
