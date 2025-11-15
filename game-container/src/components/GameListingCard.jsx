@@ -15,13 +15,27 @@ function GameCard({ game, onClick }) {
         className="w-full h-48 object-cover rounded mb-3"
       /> */}
       
-      <h3 className="text-lg font-bold" style={{ color: colors.text }}>
-        {game.Name}
-      </h3>
-      
-      <p className="text-xl font-bold" style={{ color: colors.primary }}>
-        {game.Booked}
-      </p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+        <h3 className="text-lg font-bold display-inline-block;margin-right:10px; width:200px;" style={{ color: colors.text }}>
+          {game.Name}
+        </h3>
+        
+        {!(game.Booked) && 
+          (
+          <p className="font-bold display-inline width-200px;" style={{ fontSize: "15px", color: colors.green }}>
+            {"Avaliable"}
+          </p>
+          )
+        }
+
+        {(game.Booked) && 
+          (
+          <p className="font-bold display-inline width-200px;" style={{ fontSize: "15px", color: colors.red }}>
+            {"Booked"}
+          </p>
+          )
+        }
+      </div>
       
       <p className="text-sm text-gray-600 mb-2">
         {game.Description}

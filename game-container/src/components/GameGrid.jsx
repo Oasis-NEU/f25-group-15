@@ -24,6 +24,7 @@ function GameGrid({ gameList, onListingClick }) {
       {gameList.map(game => (
         <GameListingCard
           game={game}
+          key={game.ID}
           onClick={() => onListingClick(game)}
         />
       ))}
