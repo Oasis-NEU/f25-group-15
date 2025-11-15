@@ -1,7 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase_client } from '../config/supabaseClient';
-import Header from '../components/Header'
+import {createContext, useContext, useState, useEffect} from "react";
+import { Header } from '../components/Header'
 import GameGrid from '../components/GameGrid';
 
 function GameCollectionPage({
@@ -11,7 +9,7 @@ function GameCollectionPage({
     return (
         <div className='min-h-screen min-w-screen bg-[#3B3F44]/75'>
             <Header
-                buttons={['Home']}
+                buttons={['Home', "Login"]}
             />
             
             {/* Game Grid */}
