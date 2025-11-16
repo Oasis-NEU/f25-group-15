@@ -10,7 +10,7 @@ function LoginPage() {
     const goToHome = () => {
         navigate('/');
     };
-
+    
     const { errorMessage, register, login } = useContext(AuthContext)
 
     const [isLogin, setIsLogin] = useState(true)
