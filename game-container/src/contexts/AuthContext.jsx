@@ -3,7 +3,7 @@
 
 // TODO: add a field of user status (student vs admin)
 
-import {createContext, useContext, useState, useEffect} from "react";
+import { createContext, useContext, useState } from "react";
 import { supabase_client } from "../config/supabaseClient.js"
 
 const supabase = supabase_client
@@ -15,7 +15,14 @@ export function useAuth() {
 }
 
 export function AuthProvider({children}) {
-    const [errorMessage, setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState("")
+    const [currentUser, setCurrentUser] = useState(null)
+
+    const getUser = async () => {
+        const { data: { user } } = await supabase.auth.getUser()
+        console.log('Current user: ', user)
+        setCurrentUser(user)
+    }
 
     const register = async (user_email, user_password) => {
         console.log('Running registration')
@@ -27,9 +34,11 @@ export function AuthProvider({children}) {
         console.log('Error: ', error)
 
         var stringMessage = error.toString().split('Error: ')[1]
-        setErrorMessage(stringMessage)
+        setErrorMessage(`Error: ${stringMessage}`)
 
         createGameCheckout()
+
+        return !error
     }
 
     const login = async (user_email, user_password) => {
@@ -41,9 +50,13 @@ export function AuthProvider({children}) {
 
         console.log('Data: ', data)
         console.log('Error: ', error)
-
-        var stringMessage = error.toString().split('Error: ')[1]
-        setErrorMessage(stringMessage)
+        
+        if (error) {
+            var stringMessage = error.toString().split('Error: ')[1]
+            setErrorMessage(`Error: ${stringMessage}`)
+        }
+        
+        return !error
     }
 
     const recovery = async (email) => {
@@ -52,7 +65,7 @@ export function AuthProvider({children}) {
     }
 
     const createGameCheckout = async () => {
-        console.log('Creating game checkout for testing')
+        console.log('Creating empty game list for registered user')
         const { data: { user } } = await supabase.auth.getUser()
         console.log(user)
         const { data, error } = await supabase
@@ -63,12 +76,14 @@ export function AuthProvider({children}) {
         .select()
     }
 
-    const logout = () => {
-        let { error } = supabase.auth.signOut()
+    const logout = async () => {
+        let { error } = await supabase.auth.signOut()
+        console.log(error)
+        setCurrentUser(null)
     }
 
     return (
-        <AuthContext.Provider value={{ errorMessage, login, logout, register, createGameCheckout }}>
+        <AuthContext.Provider value={{ currentUser,errorMessage, getUser, login, logout, register, createGameCheckout }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 export function Header({
     buttons = [],
@@ -9,6 +10,8 @@ export function Header({
     const goToGameCatalog = () => navigate('/GamesCollection');
     const goToLogin = () => navigate('/Login');
     const goToHome = () => navigate('/');
+
+    const { logout, setCurrentUser } = useAuth();
 
     return (
         <header className="w-full bg-[#C8102E]/85 shadow-md p-4 fixed top-0 left-0">
@@ -50,6 +53,18 @@ export function Header({
                                 onClick={goToLogin}
                             >
                                 Login
+                            </button>
+                            )
+                        }
+
+                        {buttons.includes("Logout") && (
+                            <button
+                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
+                                onClick={async () => {
+                                    await logout();
+                                }}
+                            >
+                                Logout
                             </button>
                             )
                         }
