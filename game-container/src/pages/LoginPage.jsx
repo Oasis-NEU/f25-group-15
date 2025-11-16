@@ -1,6 +1,7 @@
-import {useContext, useState} from 'react'
+import { useState } from 'react'
 import { Textbox } from "../components/Textbox";
-import { AuthContext } from '../contexts/AuthContext';
+import Header from '../components/Header'
+import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -11,7 +12,7 @@ function LoginPage() {
         navigate('/');
     };
 
-    const { errorMessage, register, login } = useContext(AuthContext)
+    const { errorMessage, register, login } = useAuth()
 
     const [isLogin, setIsLogin] = useState(true)
     const [email, setEmail] = useState('')
@@ -26,25 +27,25 @@ function LoginPage() {
     const toggleLogin = () => {
         setIsLogin(!isLogin)
     }
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log('clicked')
         if (isLogin) {
-            login(email, password)
+            if (await login(email, password)) {
+                navigate('/')
+            }
         } else {
-            register(email, password)
+            if (await register(email, password)) {
+                navigate('/')
+            }
         }
     } 
 
-    return ( //TODO: Better UI, this looks like shit
+    return (
         <div className = "justify-center min-h-screen min-w-screen bg-[#000000]/75">
 
-            {/* Header Bar */}
-            <header className="w-full bg-[#C8102E]/85 shadow-md p-4 fixed top-0 left-0">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-3xl font-bold text-gray-800">User Login</h1>
-                    <button onClick={goToHome}>Home</button>
-                </div>
-            </header>
+            <Header
+                buttons={['GameCatalog', 'Home']}
+            />
 
             {/* Textboxes */}
             <div className="flex flex-col items-center justify-center pt-24">
@@ -57,7 +58,7 @@ function LoginPage() {
                     <p className="text-white text-lg">{isLogin ? 'Enter password:' : 'Create password:'}</p>
                     <Textbox value={password} onChange={editPassword}/>
 
-                    <p className="text-white text-lg italic-text">Error: {errorMessage}</p>
+                    <p className="text-white text-lg italic-text"> {errorMessage}</p>
                     <div className="flex space-x-4 mt-6">
                         <button onClick={handleSubmit}>Submit</button>
                         <button onClick={toggleLogin}>
