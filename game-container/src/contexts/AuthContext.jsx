@@ -15,13 +15,16 @@ export function useAuth() {
 }
 
 export function AuthProvider({children}) {
+
     const [errorMessage, setErrorMessage] = useState("")
     const [currentUser, setCurrentUser] = useState(null)
+    const [loggedIn, setLoggedIn] = useState(false)
 
     const getUser = async () => {
         const { data: { user } } = await supabase.auth.getUser()
         console.log('Current user: ', user)
         setCurrentUser(user)
+        setLoggedIn(user != null)
     }
 
     const register = async (user_email, user_password) => {
@@ -33,8 +36,10 @@ export function AuthProvider({children}) {
         console.log('Data: ', data)
         console.log('Error: ', error)
 
-        var stringMessage = error.toString().split('Error: ')[1]
-        setErrorMessage(`Error: ${stringMessage}`)
+        if (error) {
+            var stringMessage = error.toString().split('Error: ')[1]
+            setErrorMessage(`Error: ${stringMessage}`)
+        }
 
         createGameCheckout()
 
@@ -83,7 +88,7 @@ export function AuthProvider({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{ currentUser,errorMessage, getUser, login, logout, register, createGameCheckout }}>
+        <AuthContext.Provider value={{ loggedIn, currentUser,errorMessage, getUser, login, logout, register, createGameCheckout }}>
             {children}
         </AuthContext.Provider>
     )

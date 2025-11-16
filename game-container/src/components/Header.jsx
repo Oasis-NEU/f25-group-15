@@ -59,7 +59,7 @@ export function Header({
 
                         {buttons.includes("Logout") && (
                             <button
-                                className="px-5 py-2 bg-white text-gray-800 rounded-xl text-base font-medium hover:bg-gray-400 transition"
+                                className="px-5 py-2 bg-white text-gray-400 rounded-xl text-base font-medium hover:bg-gray-400 transition"
                                 onClick={async () => {
                                     await logout();
                                 }}

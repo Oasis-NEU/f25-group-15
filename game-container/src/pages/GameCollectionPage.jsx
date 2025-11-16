@@ -1,5 +1,5 @@
-import {createContext, useContext, useState, useEffect} from "react";
-import { Header } from '../components/Header'
+import { useState } from "react";
+import { useAuth } from '../contexts/AuthContext';
 import GameGrid from '../components/GameGrid';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +10,8 @@ function GameCollectionPage({
     const navigate = useNavigate();
     const goToLogin = () => navigate('/Login'); 
     const goToHome = () => navigate('/');
+
+    const { logout, loggedIn } = useAuth();
 
     const [filteredGames, setFilteredGames] = useState(gameList)
     const [searchGame, setSearchGame] = useState('')
@@ -66,9 +68,11 @@ function GameCollectionPage({
                                 
                             <button
                                 className="px-5 py-2 bg-white text-gray-400 rounded-xl text-base font-medium hover:bg-gray-400 transition"
-                                onClick={goToLogin}
+                                onClick={ loggedIn? 
+                                    async() => { await logout(); navigate('/'); }
+                                    : goToLogin }
                             >
-                                Login
+                                {loggedIn ? "Logout" : "Login"}
                             </button>
                         </div>
                     </div>
