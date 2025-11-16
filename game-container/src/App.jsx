@@ -18,7 +18,7 @@ function AppContent(){
 
   async function fetchGames() {
     const { data, error } = await supabase_client
-      .from('GamesCatalogue')
+      .from('GamesCatalogueV2')
       .select("*");
         
     if (error) {
@@ -26,7 +26,6 @@ function AppContent(){
       alert(`Error fetching games: ${error.message}`);
       return;
     }
-    console.log(data)
     setGames(data || []);
   }
 

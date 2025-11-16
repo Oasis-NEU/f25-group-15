@@ -1,10 +1,8 @@
 import { Package } from 'lucide-react';
 import { colors } from '../constants/colors';
-import { useAuth } from '../contexts/AuthContext';
 import GameListingCard from './GameListingCard';
 
 function GameGrid({ gameList, onListingClick }) {
-  const { user } = useAuth();
   if (gameList.length === 0) {
     return (
       <div className="text-center py-16">
@@ -24,6 +22,7 @@ function GameGrid({ gameList, onListingClick }) {
       {gameList.map(game => (
         <GameListingCard
           game={game}
+          key={game.ID}
           onClick={() => onListingClick(game)}
         />
       ))}
